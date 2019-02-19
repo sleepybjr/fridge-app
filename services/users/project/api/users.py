@@ -38,7 +38,9 @@ def add_user():
     username = post_data.get('username')
     email = post_data.get('email')
     try:
-        user = User.query.filter((User.email == email) | (User.username == username)).first()
+        user = User.query.filter(
+            (User.email == email) | (User.username == username)
+        ).first()
         if not user:
             db.session.add(User(username=username, email=email))
             db.session.commit()
@@ -47,9 +49,11 @@ def add_user():
             return jsonify(response_object), 201
         else:
             if user.username == username:
-                response_object['message'] = 'Sorry. That username already exists.'
+                response_object['message'] = \
+                    'Sorry. That username already exists.'
             else:
-                response_object['message'] = 'Sorry. That email already exists.'
+                response_object['message'] = \
+                    'Sorry. That email already exists.'
             return jsonify(response_object), 400
     except exc.IntegrityError:
         db.session.rollback()
