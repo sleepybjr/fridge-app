@@ -3,3 +3,6 @@ env
 
 #pycharm
 .idea
+
+# test coverage
+services/users/htmlcov
