@@ -20,6 +20,8 @@ before_script:
   - docker-compose -f docker-compose-dev.yml up --build -d
 
 script:
+  # timer due to long wait time for postgres to boot up on travis...
+  - sleep 5
   - docker-compose -f docker-compose-dev.yml exec users python manage.py test
   - docker-compose -f docker-compose-dev.yml exec users flake8 project
 
