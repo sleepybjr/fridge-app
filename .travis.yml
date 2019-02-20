@@ -8,7 +8,7 @@ env:
 
 before_install:
   # shutdown travis ci postgres instance
-  - sudo service postgresql stop
+  - sudo /etc/init.d/postgresql stop
   # wait for postgresql to shutdown
   - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
   - sudo rm /usr/local/bin/docker-compose
@@ -17,11 +17,10 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 before_script:
+  - sleep 15
   - docker-compose -f docker-compose-dev.yml up --build -d
 
 script:
-  # timer due to long wait time for postgres to boot up on travis...
-  - sleep 5
   - docker-compose -f docker-compose-dev.yml exec users python manage.py test
   - docker-compose -f docker-compose-dev.yml exec users flake8 project
 
