@@ -18,6 +18,7 @@ before_install:
 
 before_script:
   - docker-compose -f docker-compose-dev.yml up --build -d
+  - sleep 15
 
 script:
   - docker-compose -f docker-compose-dev.yml exec users python manage.py test
