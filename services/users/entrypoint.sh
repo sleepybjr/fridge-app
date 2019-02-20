@@ -11,6 +11,6 @@ while ! pg_isready -h users-db -p 5432 -q -U postgres; do
   sleep 1
 done
 
-echo "PostgreSQL started"
+>&2 echo "PostgreSQL started"
 
 python manage.py run -h 0.0.0.0

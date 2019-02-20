@@ -37,6 +37,8 @@ def add_user():
         return jsonify(response_object), 400
     username = post_data.get('username')
     email = post_data.get('email')
+    if not username or not email:
+        return jsonify(response_object), 400
     try:
         user = User.query.filter(
             (User.email == email) | (User.username == username)
